@@ -12,8 +12,11 @@ namespace devWarsztatyClean.iOS
         {
         }
 
+        private MainViewModel viewModel;
+
         public override void ViewDidLoad()
         {
+            viewModel = new MainViewModel();
             base.ViewDidLoad();
 
             // Perform any additional setup after loading the view, typically from a nib.
@@ -25,12 +28,26 @@ namespace devWarsztatyClean.iOS
             };
 
             var x = new MyClass();
+
+            TitleLabel.Text = viewModel.Title;
         }
 
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
             // Release any cached data, images, etc that aren't in use.		
+        }
+
+        private void ViewModel_PropertyChanged(
+        	object sender,
+        	System.ComponentModel.PropertyChangedEventArgs e)
+        {
+        	switch (e.PropertyName)
+        	{
+        		case "Title":
+        			TitleLabel.Text = viewModel.Title;
+                    break;
+            }
         }
     }
 }
